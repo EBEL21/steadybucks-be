@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://ec2-44-219-8-173.compute-1.amazonaws.com:5432/postgres
+    username: postgres
+    password: taeho
+    driver-class-name: org.postgresql.Driver
+  application:
+    name: SteadyBucks
+
+  jpa:
+    hibernate:
+      ddl-auto: update # ?? ??? update? ??, ?? ????? none?? ?? ??
+    show-sql: true # SQL ??? ??? ??
+    properties:
+      hibernate:
+        default_schema: steadybucks
+        format_sql: true # SQL ??? ?? ?? ??
+        dialect: org.hibernate.dialect.PostgreSQLDialect # PostgreSQL? ?? Hibernate Dialect
+
+  # ????? ?????? ?? ? ?? ?? (HikariCP)
+  datasource.hikari:
+    minimum-idle: 5
+    maximum-pool-size: 20
+    idle-timeout: 30000
+    pool-name: HikariCP
+    max-lifetime: 1800000
+    connection-timeout: 20000
+
+logging:
+  level:
+    root: info
+    org.hibernate.SQL: debug # Hibernate SQL ?? ?? ?? ??
+    org.hibernate.type.descriptor.sql: trace # ??? ?? ?? ??
+
+# profile ? ??? ????? ??? ?? ??
+# ---
+# spring:
+#   profiles: dev
+#   datasource:
+#     url: jdbc:postgresql://localhost:5432/dev_database
+# ---
+# spring:
+#   profiles: prod
+#   datasource:
+#     url: jdbc:postgresql://prod-database-url:5432/prod_database
