@@ -25,6 +25,8 @@ spring:
     pool-name: HikariCP
     max-lifetime: 1800000
     connection-timeout: 20000
+  jackson:
+    time-zone: Asia/Seoul
 
 logging:
   level:

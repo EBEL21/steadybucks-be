@@ -16,12 +16,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Clan {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true, length = 15)
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

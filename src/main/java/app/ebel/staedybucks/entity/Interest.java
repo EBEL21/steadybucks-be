@@ -1,5 +1,7 @@
 package app.ebel.staedybucks.entity;
 
+import app.ebel.staedybucks.enums.CreatorType;
+import app.ebel.staedybucks.enums.TradingType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,11 +27,6 @@ public class Interest {
     @Enumerated(EnumType.STRING)
     private CreatorType creatorType;
 
-    public enum CreatorType {
-        CLAN,
-        USER
-    }
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User createdUser;
@@ -52,5 +49,9 @@ public class Interest {
 
     @Column(name = "target_price")
     private float targetPrice;
+
+    @Column(name = "trading_type")
+    @Enumerated(EnumType.STRING)
+    private TradingType type;
 
 }

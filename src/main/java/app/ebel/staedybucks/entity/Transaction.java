@@ -1,10 +1,13 @@
 package app.ebel.staedybucks.entity;
 
+import app.ebel.staedybucks.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transaction")
@@ -17,14 +20,9 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
     private TransactionType type;
-
-    public enum TransactionType {
-        BUY,
-        SELL
-    }
 
     @Column(name = "quantity", nullable = false)
     private float quantity;
@@ -35,9 +33,7 @@ public class Transaction {
     @Column(name = "total_value", nullable = false)
     private float totalValue;
 
-    @Column(name = "date", nullable = false)
-    private float date;
-
-
+    @Column(name = "time", nullable = false)
+    private LocalDateTime time;
 
 }

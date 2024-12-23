@@ -19,16 +19,16 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", nullable = false, unique = true)
+    @Column(name = "code", nullable = false, unique = true, length = 10)
     private String code;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = false, length = 20)
     private String type;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = true, length = 50)
     private String name;
 
-    @Column(name = "market", nullable = false)
+    @Column(name = "market", nullable = false, length = 30)
     private String market;
 
 }

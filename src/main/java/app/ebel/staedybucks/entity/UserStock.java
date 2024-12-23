@@ -26,12 +26,9 @@ public class UserStock {
     private Stock stock;
 
     @Column(name = "average_price", nullable = false)
-    private float averageLPrice;
+    private float averagePrice;
 
     @Column(name = "quantity", nullable = false)
     private float quantity;
-
-    @Column(name = "profit_rate", nullable = false)
-    private float profitRate;
 
 }

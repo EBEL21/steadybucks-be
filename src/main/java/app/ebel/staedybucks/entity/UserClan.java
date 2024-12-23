@@ -1,12 +1,11 @@
 package app.ebel.staedybucks.entity;
 
 
+import app.ebel.staedybucks.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-
-import static app.ebel.staedybucks.entity.UserClan.UserRole.MEMBER;
 
 @Entity
 @Table(name = "user_clan")
@@ -28,15 +27,11 @@ public class UserClan {
     @JoinColumn(name = "clan_id")
     private Clan clan;
 
+    @Column(name = "role", nullable = false, length = 10)
     @Enumerated(EnumType.STRING)
-    private UserRole role = MEMBER;
+    private UserRole role = UserRole.MEMBER;
 
     @Column(name = "joined_at", nullable = false)
     private LocalDate joinedAt;
 
-    public enum UserRole {
-        CAPTAIN,
-        MANAGER,
-        MEMBER
-    }
 }
