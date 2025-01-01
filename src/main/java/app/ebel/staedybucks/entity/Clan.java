@@ -1,17 +1,16 @@
 package app.ebel.staedybucks.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "clan")
 @Setter
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Clan {
@@ -23,12 +22,13 @@ public class Clan {
     @Column(name = "name", nullable = false, unique = true, length = 15)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="userclan_id", referencedColumnName = "id")
+    @Column(name = "create_at", nullable = false)
+    private LocalDate createAt;
+
+    @OneToMany(mappedBy = "clan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserClan> clanMembers;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="interest_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "createdClan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Interest> interests;
 
 }
