@@ -1,10 +1,7 @@
 package app.ebel.staedybucks.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +19,7 @@ public class User {
 
     @Column(name = "login_id", nullable = false, unique = true, length = 30)
     private String loginId;
-    @Column(name="email", nullable = false, length = 30)
+    @Column(name="password", nullable = false, length = 30)
     private String password;
     @Column(name = "nickname", nullable = false, unique = true, length = 15)
     private String nickname;
@@ -32,15 +30,14 @@ public class User {
     @JoinColumn(name="account_id", referencedColumnName = "id")
     private Account account;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="userclan_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name="userclan_id", referencedColumnName = "id")
     private List<UserClan> registeredClan;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="interest_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "createdUser", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name="interest_id", referencedColumnName = "id")
     private List<Interest> interests;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="interest_follow_id", referencedColumnName = "id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InterestFollow> interestFollows;
 }
