@@ -44,6 +44,10 @@ public class Interest {
     @Column(name = "closed_at")
     private LocalDate closedAt;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "stock_code", nullable = false, referencedColumnName = "code")
+    private Stock stock;
+
     @Column(name = "captured_price", nullable = false)
     private float capturedPrice;
 
