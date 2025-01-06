@@ -5,6 +5,7 @@ import app.ebel.staedybucks.dto.request.AddInterestRqDto;
 import app.ebel.staedybucks.dto.response.UserClanInfoRpDto;
 import app.ebel.staedybucks.dto.response.UserInfoRpDto;
 import app.ebel.staedybucks.dto.response.UserInterestRpDto;
+import app.ebel.staedybucks.dto.response.UserListRpDto;
 import app.ebel.staedybucks.entity.Interest;
 import app.ebel.staedybucks.entity.InterestFollow;
 import app.ebel.staedybucks.entity.Stock;
@@ -49,9 +50,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserInfoRpDto> getAllUserInfo() {
+    public UserListRpDto getAllUserInfo() {
         List<User> users = userRepository.findAll();
-        return users.stream().map(UserInfoRpDto::new).toList();
+        return UserListRpDto.builder()
+                .users(users.stream().map(UserInfoRpDto::new).toList())
+                .numOfUser(users.size())
+                .build();
     }
 
     @Override

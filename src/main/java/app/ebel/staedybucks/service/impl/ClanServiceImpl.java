@@ -1,14 +1,16 @@
 package app.ebel.staedybucks.service.impl;
 
-import app.ebel.staedybucks.dto.ClanDto;
+import app.ebel.staedybucks.dto.ClanInfoDto;
+import app.ebel.staedybucks.dto.InterestFollowerDto;
 import app.ebel.staedybucks.dto.request.AddInterestRqDto;
+import app.ebel.staedybucks.dto.response.ClanInterestFollowersRpDto;
 import app.ebel.staedybucks.dto.response.ClanInterestRpDto;
+import app.ebel.staedybucks.dto.response.ClanListRpDto;
 import app.ebel.staedybucks.dto.response.ClanMembersInfoRpDto;
 import app.ebel.staedybucks.entity.Clan;
 import app.ebel.staedybucks.entity.Interest;
 import app.ebel.staedybucks.entity.Stock;
 import app.ebel.staedybucks.entity.User;
-import app.ebel.staedybucks.enums.CreatorType;
 import app.ebel.staedybucks.enums.TradingType;
 import app.ebel.staedybucks.repository.ClanRepository;
 import app.ebel.staedybucks.repository.InterestRepository;
@@ -17,10 +19,10 @@ import app.ebel.staedybucks.service.ClanService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,6 +32,15 @@ public class ClanServiceImpl implements ClanService {
     private final ClanRepository clanRepository;
     private final StockRepository stockRepository;
     private final InterestRepository interestRepository;
+
+    @Override
+    public ClanListRpDto getAllClans() {
+        List<ClanInfoDto> clans = clanRepository.findAllClans();
+        return ClanListRpDto.builder()
+                .clans(clans)
+                .numOfClans(clans.size())
+                .build();
+    }
 
     @Override
     public ClanMembersInfoRpDto getClanMemberInfo(Long clanId) {
@@ -68,5 +79,15 @@ public class ClanServiceImpl implements ClanService {
     public ClanInterestRpDto getClanInterest(Long clanId) {
 
         return interestRepository.findByClanId(clanId);
+    }
+
+    @Override
+    public ClanInterestFollowersRpDto getClanInterestFollowers(Long clanId, Long interestId) {
+
+        List<InterestFollowerDto> followerDtos = interestRepository.findInterestFollowers(clanId, interestId);
+        return ClanInterestFollowersRpDto.builder()
+                .followers(followerDtos)
+                .numOfFollower(followerDtos.size())
+                .build();
     }
 }

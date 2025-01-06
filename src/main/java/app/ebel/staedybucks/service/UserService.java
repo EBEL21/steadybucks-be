@@ -5,6 +5,7 @@ import app.ebel.staedybucks.dto.request.AddInterestRqDto;
 import app.ebel.staedybucks.dto.response.UserClanInfoRpDto;
 import app.ebel.staedybucks.dto.response.UserInfoRpDto;
 import app.ebel.staedybucks.dto.response.UserInterestRpDto;
+import app.ebel.staedybucks.dto.response.UserListRpDto;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface UserService {
 
     Long deleteUser(Long userId);
 
-    List<UserInfoRpDto> getAllUserInfo();
+    UserListRpDto getAllUserInfo();
 
     UserInfoRpDto getUserInfo(Long userId);
 

@@ -1,6 +1,6 @@
 package app.ebel.staedybucks.controller;
 
-import app.ebel.staedybucks.dto.StockDto;
+import app.ebel.staedybucks.dto.response.StockListRpDto;
 import app.ebel.staedybucks.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,7 +20,14 @@ public class StockController {
 
     private final StockService stockService;
 
-    @PostMapping(value = "/upload-stocks", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @GetMapping(value = "/", name = "주식 목록 조회")
+    public ResponseEntity<StockListRpDto> getAllStocks() {
+        StockListRpDto stockListDto = stockService.getStockList();
+
+        return ResponseEntity.ok(stockListDto);
+    }
+
+    @PostMapping(value = "/upload-stocks", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, name = "주식 메타데이터 업로드")
     public ResponseEntity<String> uploadStockListCsvFile(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty() || !file.getOriginalFilename().endsWith(".csv")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid file. Please upload a CSV file.");
@@ -34,15 +40,5 @@ public class StockController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("An error occurred while processing the file: " + e.getMessage());
         }
-    }
-
-    @GetMapping(value = "/list")
-    public ResponseEntity<Map<String, Object>> getStockList() {
-        List<StockDto> stockDtoList = stockService.getStockList();
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("data", stockDtoList);
-
-        return ResponseEntity.ok(response);
     }
 }

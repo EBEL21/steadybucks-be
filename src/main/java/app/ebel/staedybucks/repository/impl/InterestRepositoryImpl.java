@@ -1,9 +1,8 @@
 package app.ebel.staedybucks.repository.impl;
 
-import app.ebel.staedybucks.dto.InterestDto;
-import app.ebel.staedybucks.dto.InterestFollowDto;
-import app.ebel.staedybucks.dto.StockDto;
-import app.ebel.staedybucks.dto.UserInterestSingleDto;
+import app.ebel.staedybucks.UserSimpleInfoDto;
+import app.ebel.staedybucks.dto.*;
+import app.ebel.staedybucks.dto.response.ClanInterestFollowersRpDto;
 import app.ebel.staedybucks.dto.response.ClanInterestRpDto;
 import app.ebel.staedybucks.dto.response.UserInterestRpDto;
 import app.ebel.staedybucks.entity.Clan;
@@ -11,6 +10,7 @@ import app.ebel.staedybucks.entity.User;
 import app.ebel.staedybucks.repository.custom.InterestRepositoryCustom;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -31,12 +31,6 @@ import static com.querydsl.core.types.Projections.*;
 public class InterestRepositoryImpl implements InterestRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-
-    @Override
-    public Long createInterestFollow(Long userId, Long interestId) {
-
-        return null;
-    }
 
     @Override
     public UserInterestRpDto findByUserId(Long userId) {
@@ -82,8 +76,6 @@ public class InterestRepositoryImpl implements InterestRepositoryCustom {
                                 interest.type.as("tradingType"),
                                 Projections.fields(
                                         InterestFollowDto.class,
-                                        clan.id.as("clanId"),
-                                        clan.name.as("clanName"),
                                         interestFollow.followedAt,
                                         interestFollow.closedAt
                                 ).as("followInfo")
@@ -142,4 +134,47 @@ public class InterestRepositoryImpl implements InterestRepositoryCustom {
 
         return dto;
     }
+
+    @Override
+    public List<InterestFollowerDto> findInterestFollowers(Long clanId, Long interestId) {
+
+        List<InterestFollowerDto> followerDtos = queryFactory.select(
+                        Projections.fields(
+                                InterestFollowerDto.class,
+                                Projections.fields(
+                                        UserSimpleInfoDto.class,
+                                        user.id,
+                                        user.nickname
+                                ).as("user"),
+                                Projections.fields(
+                                        InterestFollowDto.class,
+                                        interestFollow.followedAt,
+                                        interestFollow.closedAt
+                                ).as("follow")
+                        )
+                ).from(interestFollow)
+                .join(interestFollow.interest, interest)
+                .join(interestFollow.user, user)
+                .where(clanInterestCheck(clanId), interestIdCheck(interestId))
+                .fetch();
+
+        return followerDtos;
+    }
+
+    private BooleanExpression followerCheck(Long userId) {
+        return interestFollow.user.id.eq(userId);
+    }
+
+    private BooleanExpression userInterestCheck(Long userId) {
+        return interest.createdUser.id.eq(userId);
+    }
+
+    private BooleanExpression clanInterestCheck(Long clanId) {
+        return interest.createdClan.id.eq(clanId);
+    }
+
+    private BooleanExpression interestIdCheck(Long interestId) {
+        return interest.id.eq(interestId);
+    }
+
 }

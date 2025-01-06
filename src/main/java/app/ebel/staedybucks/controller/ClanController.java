@@ -1,18 +1,16 @@
 package app.ebel.staedybucks.controller;
 
-import app.ebel.staedybucks.dto.ClanDto;
-import app.ebel.staedybucks.dto.UserDto;
 import app.ebel.staedybucks.dto.request.AddInterestRqDto;
 import app.ebel.staedybucks.dto.request.CreateClanRqDto;
 import app.ebel.staedybucks.dto.request.UserRegisterClanRqDto;
+import app.ebel.staedybucks.dto.response.ClanInterestFollowersRpDto;
 import app.ebel.staedybucks.dto.response.ClanInterestRpDto;
+import app.ebel.staedybucks.dto.response.ClanListRpDto;
 import app.ebel.staedybucks.dto.response.ClanMembersInfoRpDto;
 import app.ebel.staedybucks.service.ClanService;
 import app.ebel.staedybucks.service.UserClanService;
-import app.ebel.staedybucks.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +22,13 @@ public class ClanController {
 
     private final ClanService clanService;
     private final UserClanService userClanService;
+
+    // 클랜 목록 조회
+    @GetMapping("/")
+    public ResponseEntity<ClanListRpDto> getAllClans() {
+        ClanListRpDto clanList = clanService.getAllClans();
+        return ResponseEntity.ok(clanList);
+    }
 
     // 클랜 생성
     @PostMapping(value = "/create")
@@ -68,8 +73,8 @@ public class ClanController {
     }
 
     @PostMapping(value = "/{clanId}/interests/{interestId}/members")
-    public ResponseEntity<ClanInterestRpDto> getClanInterest(@PathVariable Long clanId, @PathVariable Long interestId) {
-        ClanInterestRpDto result = clanService.getClanInterest(clanId);
+    public ResponseEntity<ClanInterestFollowersRpDto> getClanInterestFollowers(@PathVariable Long clanId, @PathVariable Long interestId) {
+        ClanInterestFollowersRpDto result = clanService.getClanInterestFollowers(clanId, interestId);
         return ResponseEntity.ok(result);
     }
 

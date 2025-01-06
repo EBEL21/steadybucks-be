@@ -1,6 +1,7 @@
 package app.ebel.staedybucks.service.impl;
 
 import app.ebel.staedybucks.dto.StockDto;
+import app.ebel.staedybucks.dto.response.StockListRpDto;
 import app.ebel.staedybucks.entity.Stock;
 import app.ebel.staedybucks.repository.StockRepository;
 import app.ebel.staedybucks.repository.impl.StockBatchRepository;
@@ -66,9 +67,13 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public List<StockDto> getStockList() {
+    public StockListRpDto getStockList() {
         List<Stock> stockList = stockRepository.findAll();
+        stockList.stream().map(StockDto::new).toList();
 
-        return stockList.stream().map(StockDto::new).toList();
+        return StockListRpDto.builder()
+                .stockList(stockList.stream().map(StockDto::new).toList())
+                .numOfStock(stockList.size())
+                .build();
     }
 }

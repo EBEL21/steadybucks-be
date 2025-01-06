@@ -1,12 +1,16 @@
 package app.ebel.staedybucks.repository.custom;
 
+import app.ebel.staedybucks.dto.InterestFollowerDto;
+import app.ebel.staedybucks.dto.response.ClanInterestFollowersRpDto;
 import app.ebel.staedybucks.dto.response.ClanInterestRpDto;
 import app.ebel.staedybucks.dto.response.UserInterestRpDto;
 
-public interface InterestRepositoryCustom {
+import java.util.List;
 
-    Long createInterestFollow(Long userId, Long interestId);
+public interface InterestRepositoryCustom {
     UserInterestRpDto findByUserId(Long userId);
 
     ClanInterestRpDto findByClanId(Long clanId);
+
+    List<InterestFollowerDto> findInterestFollowers(Long clanId, Long interestId);
 }

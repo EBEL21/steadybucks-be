@@ -17,6 +17,8 @@ import java.time.LocalDate;
 public class UserInterestSingleDto {
 
     private Long creatorId;
+    private String creator;
+    private String clan;
     private StockDto stockInfo;
     private LocalDate capturedAt;
     private LocalDate closedAt;

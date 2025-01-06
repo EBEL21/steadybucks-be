@@ -5,6 +5,7 @@ import app.ebel.staedybucks.dto.request.AddInterestRqDto;
 import app.ebel.staedybucks.dto.response.UserClanInfoRpDto;
 import app.ebel.staedybucks.dto.response.UserInfoRpDto;
 import app.ebel.staedybucks.dto.response.UserInterestRpDto;
+import app.ebel.staedybucks.dto.response.UserListRpDto;
 import app.ebel.staedybucks.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,9 @@ public class UserController {
     private final UserService userService;
 
 
-    @GetMapping(value = "/all")
-    public ResponseEntity<List<UserInfoRpDto>> getAllUsers() {
-        List<UserInfoRpDto> userInfoRpDtoList = userService.getAllUserInfo();
+    @GetMapping(value = "/", name = "유저 목록 조회")
+    public ResponseEntity<UserListRpDto> getAllUsers() {
+        UserListRpDto userInfoRpDtoList = userService.getAllUserInfo();
         return ResponseEntity.ok(userInfoRpDtoList);
 
     }

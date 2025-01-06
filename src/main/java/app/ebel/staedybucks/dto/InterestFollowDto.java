@@ -12,8 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class InterestFollowDto {
-    Long clanId;
-    String clanName;
     LocalDate followedAt;
     LocalDate ClosedAt;
 }
