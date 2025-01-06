@@ -2,14 +2,17 @@ package app.ebel.staedybucks.controller;
 
 import app.ebel.staedybucks.dto.ClanDto;
 import app.ebel.staedybucks.dto.UserDto;
+import app.ebel.staedybucks.dto.request.AddInterestRqDto;
 import app.ebel.staedybucks.dto.request.CreateClanRqDto;
 import app.ebel.staedybucks.dto.request.UserRegisterClanRqDto;
+import app.ebel.staedybucks.dto.response.ClanInterestRpDto;
 import app.ebel.staedybucks.dto.response.ClanMembersInfoRpDto;
 import app.ebel.staedybucks.service.ClanService;
 import app.ebel.staedybucks.service.UserClanService;
 import app.ebel.staedybucks.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,5 +59,23 @@ public class ClanController {
     public ResponseEntity<ClanMembersInfoRpDto> getMembers(@PathVariable Long clanId) {
         ClanMembersInfoRpDto result = clanService.getClanMemberInfo(clanId);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @PostMapping(value = "/{clanId}/interests")
+    public ResponseEntity<ClanInterestRpDto> getClanInterest(@PathVariable Long clanId) {
+        ClanInterestRpDto result = clanService.getClanInterest(clanId);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping(value = "/{clanId}/interests/{interestId}/members")
+    public ResponseEntity<ClanInterestRpDto> getClanInterest(@PathVariable Long clanId, @PathVariable Long interestId) {
+        ClanInterestRpDto result = clanService.getClanInterest(clanId);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping(value = "/interests/add")
+    public ResponseEntity<?> addClanInterest(@Valid @RequestBody AddInterestRqDto addInterestRqDto) {
+        Long result = clanService.addClanInterest(addInterestRqDto);
+        return ResponseEntity.ok(result);
     }
 }
