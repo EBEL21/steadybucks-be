@@ -22,7 +22,7 @@ public class UserStock {
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stock_id", referencedColumnName = "id")
+    @JoinColumn(name = "stock_code", referencedColumnName = "code")
     private Stock stock;
 
     @Column(name = "average_price", nullable = false)
