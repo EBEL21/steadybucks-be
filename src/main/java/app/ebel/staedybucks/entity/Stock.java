@@ -28,7 +28,7 @@ public class Stock {
     @Column(name = "market", nullable = false, length = 30)
     private String market;
 
-    @Column(name="section_code")
+    @Column(name = "section_code")
     private Short section_code;
 
     @Column(name = "section", length = 30)
