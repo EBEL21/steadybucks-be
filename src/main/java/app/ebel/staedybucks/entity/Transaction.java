@@ -3,10 +3,7 @@ package app.ebel.staedybucks.entity;
 import app.ebel.staedybucks.entity.eid.UserStockId;
 import app.ebel.staedybucks.enums.TransactionType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "transaction")
 @Setter
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
@@ -37,13 +35,10 @@ public class Transaction {
     private TransactionType type;
 
     @Column(name = "quantity", nullable = false)
-    private Long quantity;
+    private Integer quantity;
 
     @Column(name = "price_per_unit", nullable = false)
     private BigDecimal pricePerUnit;
-
-    @Column(name = "total_value", nullable = false)
-    private BigDecimal totalValue;
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;

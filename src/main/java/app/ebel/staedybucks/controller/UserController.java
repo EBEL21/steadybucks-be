@@ -1,11 +1,11 @@
 package app.ebel.staedybucks.controller;
 
 import app.ebel.staedybucks.dto.UserDto;
+import app.ebel.staedybucks.dto.UserStockDto;
 import app.ebel.staedybucks.dto.request.AddInterestRqDto;
-import app.ebel.staedybucks.dto.response.UserClanInfoRpDto;
-import app.ebel.staedybucks.dto.response.UserInfoRpDto;
-import app.ebel.staedybucks.dto.response.UserInterestRpDto;
-import app.ebel.staedybucks.dto.response.UserListRpDto;
+import app.ebel.staedybucks.dto.request.UserTransactionRqDto;
+import app.ebel.staedybucks.dto.response.*;
+import app.ebel.staedybucks.enums.TransactionType;
 import app.ebel.staedybucks.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +71,25 @@ public class UserController {
     public ResponseEntity<UserInterestRpDto> getUserInterest(@PathVariable Long userId) {
         UserInterestRpDto userInterest = userService.getUserInterest(userId);
         return ResponseEntity.ok(userInterest);
+    }
+
+    @PostMapping(value = "/{userId}/stocks/transaction")
+    public ResponseEntity<UserStockDto> buyStock(@Valid @RequestBody UserTransactionRqDto userTransactionRqDto) {
+        if (userTransactionRqDto.getType() == TransactionType.BUY) {
+            UserStockDto result = userService.buyStock(userTransactionRqDto);
+            return ResponseEntity.ok(result);
+        } else if(userTransactionRqDto.getType() == TransactionType.SELL) {
+            UserStockDto result = userService.sellStock(userTransactionRqDto);
+            return ResponseEntity.ok(result);
+        } else {
+            throw new IllegalArgumentException("Invalid Transaction Type");
+        }
+    }
+
+    @GetMapping(value = "/{userId}/stocks/list")
+    public ResponseEntity<UserStockListRpDto> getUserStock(@PathVariable Long userId) {
+        UserStockListRpDto dto = userService.getUserStockList(userId);
+        return ResponseEntity.ok(dto);
     }
 
 }

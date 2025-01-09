@@ -2,15 +2,15 @@ package app.ebel.staedybucks.entity;
 
 import app.ebel.staedybucks.entity.eid.UserStockId;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "user_stock")
 @Setter
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserStock {
@@ -28,10 +28,13 @@ public class UserStock {
     @JoinColumn(name = "stock_code", referencedColumnName = "code")
     private Stock stock;
 
-    @Column(name = "average_price", nullable = false)
-    private float averagePrice;
+    @Column(name = "total_value", nullable = false)
+    private BigDecimal totalValue;
+
+    @Column(name = "price_per_unit", nullable = false)
+    private BigDecimal pricePerUnit;
 
     @Column(name = "quantity", nullable = false)
-    private float quantity;
+    private Integer quantity;
 
 }
