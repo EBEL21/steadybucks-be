@@ -1,11 +1,11 @@
 package app.ebel.staedybucks.service.impl;
 
-import app.ebel.staedybucks.dto.StockDto;
+import app.ebel.staedybucks.dto.base.StockDto;
 import app.ebel.staedybucks.dto.response.StockListRpDto;
 import app.ebel.staedybucks.entity.Stock;
-import app.ebel.staedybucks.repository.StockRepository;
+import app.ebel.staedybucks.repository.base.StockRepository;
 import app.ebel.staedybucks.repository.impl.StockBatchRepository;
-import app.ebel.staedybucks.service.StockService;
+import app.ebel.staedybucks.service.base.StockService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,9 @@
 package app.ebel.staedybucks.dto.response;
 
-import app.ebel.staedybucks.dto.UserClanDto;
+import app.ebel.staedybucks.dto.base.UserClanDto;
 import app.ebel.staedybucks.entity.User;
-import lombok.Builder;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

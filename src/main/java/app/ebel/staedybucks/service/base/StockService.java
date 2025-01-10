@@ -1,4 +1,4 @@
-package app.ebel.staedybucks.service;
+package app.ebel.staedybucks.service.base;
 
 import app.ebel.staedybucks.dto.response.StockListRpDto;
 import org.springframework.web.multipart.MultipartFile;

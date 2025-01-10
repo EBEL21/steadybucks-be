@@ -1,7 +1,7 @@
 package app.ebel.staedybucks.service.impl;
 
-import app.ebel.staedybucks.dto.ClanInfoDto;
-import app.ebel.staedybucks.dto.InterestFollowerDto;
+import app.ebel.staedybucks.dto.base.ClanInfoDto;
+import app.ebel.staedybucks.dto.base.InterestFollowerDto;
 import app.ebel.staedybucks.dto.request.AddInterestRqDto;
 import app.ebel.staedybucks.dto.response.ClanInterestFollowersRpDto;
 import app.ebel.staedybucks.dto.response.ClanInterestRpDto;
@@ -12,10 +12,10 @@ import app.ebel.staedybucks.entity.Interest;
 import app.ebel.staedybucks.entity.Stock;
 import app.ebel.staedybucks.entity.User;
 import app.ebel.staedybucks.enums.TradingType;
-import app.ebel.staedybucks.repository.ClanRepository;
-import app.ebel.staedybucks.repository.InterestRepository;
-import app.ebel.staedybucks.repository.StockRepository;
-import app.ebel.staedybucks.service.ClanService;
+import app.ebel.staedybucks.repository.base.ClanRepository;
+import app.ebel.staedybucks.repository.base.InterestRepository;
+import app.ebel.staedybucks.repository.base.StockRepository;
+import app.ebel.staedybucks.service.base.ClanService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

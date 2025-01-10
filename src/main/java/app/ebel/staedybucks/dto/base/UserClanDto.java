@@ -1,4 +1,4 @@
-package app.ebel.staedybucks.dto;
+package app.ebel.staedybucks.dto.base;
 
 import app.ebel.staedybucks.entity.UserClan;
 import app.ebel.staedybucks.enums.UserRole;

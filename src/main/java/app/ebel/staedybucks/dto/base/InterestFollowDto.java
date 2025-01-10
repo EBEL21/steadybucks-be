@@ -1,4 +1,4 @@
-package app.ebel.staedybucks.dto;
+package app.ebel.staedybucks.dto.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

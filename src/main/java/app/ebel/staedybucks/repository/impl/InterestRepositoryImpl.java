@@ -1,18 +1,14 @@
 package app.ebel.staedybucks.repository.impl;
 
 import app.ebel.staedybucks.UserSimpleInfoDto;
-import app.ebel.staedybucks.dto.*;
-import app.ebel.staedybucks.dto.response.ClanInterestFollowersRpDto;
+import app.ebel.staedybucks.dto.base.*;
 import app.ebel.staedybucks.dto.response.ClanInterestRpDto;
 import app.ebel.staedybucks.dto.response.UserInterestRpDto;
 import app.ebel.staedybucks.entity.Clan;
 import app.ebel.staedybucks.entity.User;
 import app.ebel.staedybucks.repository.custom.InterestRepositoryCustom;
-import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

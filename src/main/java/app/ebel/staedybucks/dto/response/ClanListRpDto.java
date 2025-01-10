@@ -1,6 +1,6 @@
 package app.ebel.staedybucks.dto.response;
 
-import app.ebel.staedybucks.dto.ClanInfoDto;
+import app.ebel.staedybucks.dto.base.ClanInfoDto;
 import lombok.Builder;
 import lombok.Data;
 
