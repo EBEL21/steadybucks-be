@@ -1,6 +1,6 @@
 package app.ebel.staedybucks.dto.response;
 
-import app.ebel.staedybucks.dto.UserInterestSingleDto;
+import app.ebel.staedybucks.dto.base.UserInterestSingleDto;
 import lombok.Builder;
 import lombok.Getter;
 

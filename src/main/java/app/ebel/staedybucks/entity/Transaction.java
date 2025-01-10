@@ -17,16 +17,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Transaction {
 
-    @EmbeddedId
-    UserStockId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @MapsId("userId")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne
-    @MapsId("stockCode")
     @JoinColumn(name = "stock_code", referencedColumnName = "code")
     private Stock stock;
 
@@ -42,5 +41,8 @@ public class Transaction {
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;
+
+    @OneToOne(mappedBy = "transaction", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Profit profit;
 
 }

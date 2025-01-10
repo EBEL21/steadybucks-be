@@ -1,8 +1,7 @@
 package app.ebel.staedybucks.repository.impl;
 
-import app.ebel.staedybucks.dto.StockChartDto;
+import app.ebel.staedybucks.dto.base.StockChartDto;
 import app.ebel.staedybucks.repository.custom.StockRepositoryCustom;
-import app.ebel.staedybucks.repository.custom.UserClanRepositoryCustom;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

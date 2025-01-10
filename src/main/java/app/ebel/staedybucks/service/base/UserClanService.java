@@ -1,4 +1,4 @@
-package app.ebel.staedybucks.service;
+package app.ebel.staedybucks.service.base;
 
 import app.ebel.staedybucks.dto.request.CreateClanRqDto;
 import app.ebel.staedybucks.dto.request.UserRegisterClanRqDto;

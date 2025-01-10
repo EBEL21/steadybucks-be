@@ -1,6 +1,6 @@
 package app.ebel.staedybucks.repository.impl;
 
-import app.ebel.staedybucks.dto.ClanInfoDto;
+import app.ebel.staedybucks.dto.base.ClanInfoDto;
 import app.ebel.staedybucks.repository.custom.ClanRepositoryCustom;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;

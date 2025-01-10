@@ -1,19 +1,17 @@
 package app.ebel.staedybucks.controller;
 
-import app.ebel.staedybucks.dto.UserDto;
-import app.ebel.staedybucks.dto.UserStockDto;
+import app.ebel.staedybucks.dto.base.UserDto;
+import app.ebel.staedybucks.dto.base.UserStockDto;
 import app.ebel.staedybucks.dto.request.AddInterestRqDto;
 import app.ebel.staedybucks.dto.request.UserTransactionRqDto;
 import app.ebel.staedybucks.dto.response.*;
 import app.ebel.staedybucks.enums.TransactionType;
-import app.ebel.staedybucks.service.UserService;
+import app.ebel.staedybucks.service.base.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -92,4 +90,10 @@ public class UserController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping(value = "/{userId}/trading")
+    public ResponseEntity<TradeSummaryRpDto> getUserTradeSummary(@PathVariable Long userId) {
+        TradeSummaryRpDto dto = userService.getUserTradeSummary(userId);
+
+        return ResponseEntity.ok(dto);
+    }
 }

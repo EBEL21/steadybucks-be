@@ -1,4 +1,4 @@
-package app.ebel.staedybucks.dto;
+package app.ebel.staedybucks.dto.base;
 
 import jakarta.persistence.Column;
 import lombok.Data;

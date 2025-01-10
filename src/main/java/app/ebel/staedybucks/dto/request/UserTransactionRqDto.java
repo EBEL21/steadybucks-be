@@ -23,9 +23,11 @@ public class UserTransactionRqDto {
     Integer quantity;
     LocalDateTime time;
 
-    public Transaction toEntity(UserStockId id, User user, Stock stock) {
+    public Transaction toEntity(User user, Stock stock) {
+        System.out.println(user);
+        System.out.println(stock);
+
         return Transaction.builder()
-                .id(id)
                 .type(this.type)
                 .pricePerUnit(this.pricePerUnit)
                 .quantity(this.quantity)

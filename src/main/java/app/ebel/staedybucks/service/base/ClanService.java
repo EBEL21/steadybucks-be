@@ -1,4 +1,4 @@
-package app.ebel.staedybucks.service;
+package app.ebel.staedybucks.service.base;
 
 import app.ebel.staedybucks.dto.request.AddInterestRqDto;
 import app.ebel.staedybucks.dto.response.ClanInterestFollowersRpDto;

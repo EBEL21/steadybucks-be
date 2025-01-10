@@ -1,4 +1,4 @@
-package app.ebel.staedybucks.repository;
+package app.ebel.staedybucks.repository.base;
 
 import app.ebel.staedybucks.entity.UserStock;
 import app.ebel.staedybucks.entity.eid.UserStockId;

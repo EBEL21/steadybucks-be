@@ -1,12 +1,10 @@
-package app.ebel.staedybucks.service;
+package app.ebel.staedybucks.service.base;
 
-import app.ebel.staedybucks.dto.UserDto;
-import app.ebel.staedybucks.dto.UserStockDto;
+import app.ebel.staedybucks.dto.base.UserDto;
+import app.ebel.staedybucks.dto.base.UserStockDto;
 import app.ebel.staedybucks.dto.request.AddInterestRqDto;
 import app.ebel.staedybucks.dto.request.UserTransactionRqDto;
 import app.ebel.staedybucks.dto.response.*;
-
-import java.util.List;
 
 public interface UserService {
     Long registerUser(UserDto userDto);
@@ -29,5 +27,7 @@ public interface UserService {
     UserStockDto sellStock(UserTransactionRqDto transactionRqDto);
 
     UserStockListRpDto getUserStockList(Long userId);
+
+    TradeSummaryRpDto getUserTradeSummary(Long userId);
 
 }

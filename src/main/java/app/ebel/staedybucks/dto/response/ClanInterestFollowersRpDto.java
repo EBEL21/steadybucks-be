@@ -1,5 +1,5 @@
 package app.ebel.staedybucks.dto.response;
-import app.ebel.staedybucks.dto.InterestFollowerDto;
+import app.ebel.staedybucks.dto.base.InterestFollowerDto;
 import lombok.Builder;
 import lombok.Data;
 

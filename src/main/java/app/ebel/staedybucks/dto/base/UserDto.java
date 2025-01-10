@@ -1,4 +1,4 @@
-package app.ebel.staedybucks.dto;
+package app.ebel.staedybucks.dto.base;
 
 import app.ebel.staedybucks.entity.Account;
 import app.ebel.staedybucks.entity.User;

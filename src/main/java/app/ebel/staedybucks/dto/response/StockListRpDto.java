@@ -1,6 +1,6 @@
 package app.ebel.staedybucks.dto.response;
 
-import app.ebel.staedybucks.dto.StockDto;
+import app.ebel.staedybucks.dto.base.StockDto;
 import lombok.Builder;
 import lombok.Data;
 

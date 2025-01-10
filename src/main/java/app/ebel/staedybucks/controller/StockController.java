@@ -1,7 +1,7 @@
 package app.ebel.staedybucks.controller;
 
 import app.ebel.staedybucks.dto.response.StockListRpDto;
-import app.ebel.staedybucks.service.StockService;
+import app.ebel.staedybucks.service.base.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/stocks")
