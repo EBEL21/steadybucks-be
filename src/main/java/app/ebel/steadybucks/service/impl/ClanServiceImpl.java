@@ -45,7 +45,7 @@ public class ClanServiceImpl implements ClanService {
     @Override
     public ClanMembersInfoRpDto getClanMemberInfo(Long clanId) {
 
-        Clan clan = clanRepository.findById(clanId).orElseThrow(() -> new EntityNotFoundException("Clan not found with id: " + clanId));
+        Clan clan = clanRepository.findByIdOrThrow(clanId, "Clan");
         return new ClanMembersInfoRpDto(clan);
     }
 
@@ -55,8 +55,8 @@ public class ClanServiceImpl implements ClanService {
         Long userId = addInterestRqDto.getCreatorId();
         String stockCode = addInterestRqDto.getStockCode();
 
-        Clan clan = clanRepository.findById(clanId).orElseThrow(() -> new EntityNotFoundException("Clan not found with id: " + clanId));
-        Stock stock = stockRepository.findByCode(stockCode).orElseThrow(() -> new EntityNotFoundException("Stock not found with code: " + stockCode));;
+        Clan clan = clanRepository.findByIdOrThrow(clanId, "Clan");
+        Stock stock = stockRepository.findByCodeOrThrow(stockCode);
         User userProxy = User.builder().id(userId).build();
 
         Interest newInterest = Interest.builder()

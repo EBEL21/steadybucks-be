@@ -7,6 +7,7 @@ import app.ebel.steadybucks.dto.response.*;
 import app.ebel.steadybucks.entity.*;
 import app.ebel.steadybucks.entity.eid.UserStockId;
 import app.ebel.steadybucks.enums.TradingType;
+import app.ebel.steadybucks.exception.community.ResourceNotFoundException;
 import app.ebel.steadybucks.repository.base.*;
 import app.ebel.steadybucks.service.base.UserService;
 import jakarta.persistence.EntityManager;
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long deleteUser(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+        User user = userRepository.findByIdOrThrow(userId, "User");
         userRepository.delete(user);
         return user.getId();
     }
@@ -64,15 +65,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserInfoRpDto getUserInfo(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-
+        User user = userRepository.findByIdOrThrow(userId, "User");
         return new UserInfoRpDto(user);
     }
 
     @Override
     public UserClanInfoRpDto getUserRegisteredClan(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-
+        User user = userRepository.findByIdOrThrow(userId, "User");
         return new UserClanInfoRpDto(user);
     }
 
@@ -82,8 +81,8 @@ public class UserServiceImpl implements UserService {
     public Long addUserInterest(AddInterestRqDto addInterestRqDto) {
         Long userId = addInterestRqDto.getCreatorId();
         String stockCode = addInterestRqDto.getStockCode();
-        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-        Stock stock = stockRepository.findByCode(stockCode).orElseThrow(() -> new EntityNotFoundException("Stock not found with code: " + stockCode));
+        User user = userRepository.findByIdOrThrow(userId, "User");
+        Stock stock = stockRepository.findByCodeOrThrow(stockCode);
 
         Interest newInterest = Interest.builder()
                 .createdUser(user)
@@ -103,8 +102,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Long followClanInterest(Long userId, Long interestId) {
 
-        Interest targetInterest = interestRepository.findById(interestId).orElseThrow(() -> new EntityNotFoundException("Interest not found with id: " + interestId));
-        User targetUser = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
+        Interest targetInterest = interestRepository.findByIdOrThrow(interestId, "Interest");
+        User targetUser = userRepository.findByIdOrThrow(userId, "User");
 
         InterestFollow newFollow = InterestFollow.builder()
                 .user(targetUser)
@@ -128,8 +127,8 @@ public class UserServiceImpl implements UserService {
         Long userId = transactionRqDto.getUserId();
         String stockCode = transactionRqDto.getStockCode();
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found with id: " + userId));
-        Stock stock = stockRepository.findByCode(stockCode).orElseThrow(() -> new EntityNotFoundException("Stock not found with id: " + stockCode));
+        User user = userRepository.findByIdOrThrow(userId, "User");
+        Stock stock = stockRepository.findByCodeOrThrow(stockCode);
 
         UserStockId usid = new UserStockId(userId, stockCode);
         UserStock userStock = userStockRepository.findById(usid).orElse(
@@ -169,7 +168,7 @@ public class UserServiceImpl implements UserService {
         String stockCode = transactionRqDto.getStockCode();
 
         UserStockId usid = new UserStockId(userId, stockCode);
-        UserStock userStock = userStockRepository.findById(usid).orElseThrow(() -> new EntityNotFoundException("UserStock not found with id: " + stockCode));
+        UserStock userStock = userStockRepository.findByIdOrThrow(usid, "UserStock");
 
         User user = entityManager.getReference(User.class, userId);
         Stock stock = entityManager.getReference(Stock.class, stockCode);

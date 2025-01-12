@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserStockRepository extends JpaRepository<UserStock, UserStockId> {
+public interface UserStockRepository extends BaseRepository<UserStock, UserStockId> {
 
     List<UserStock> findById_UserId(Long userId);
     List<UserStock> findById_StockCode(String stockCode);
