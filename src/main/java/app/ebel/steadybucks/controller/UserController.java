@@ -65,7 +65,7 @@ public class UserController {
     }
 
 
-    @GetMapping(value = "/{userId}/get-interest")
+    @GetMapping(value = "/{userId}/interest")
     public ResponseEntity<UserInterestRpDto> getUserInterest(@PathVariable Long userId) {
         UserInterestRpDto userInterest = userService.getUserInterest(userId);
         return ResponseEntity.ok(userInterest);

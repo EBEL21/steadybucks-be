@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,10 @@ public class LoggingAspect {
     private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
     private final HttpServletRequest request;
 
-    @Around("execution(* app.ebel.steadybucks.controller..*(..))")
+    @Pointcut("execution(* app.ebel.steadybucks.controller..*(..))")
+    public void controllerAPIs() {}
+
+    @Around("controllerAPIs()")
     public Object logApiCall(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
 
@@ -45,7 +49,7 @@ public class LoggingAspect {
         } catch (Exception e) {
             long endTime = System.currentTimeMillis();
             logger.error("[USER: {}, SESSION: {}, METHOD: {}, URL: {}, FROM: {} IP: {}, EX: {}, MSG: {}, Execution Time: {}ms]",
-                    user, sessionId, method, url, ip, className + '.' + methodName, e.getClass().getSimpleName(), e.getMessage(), (endTime - startTime));
+                    user, sessionId, method, url, className + '.' + methodName, ip, e.getClass().getSimpleName(), e.getMessage(), (endTime - startTime));
 
             throw e;
         }

@@ -10,6 +10,32 @@
         <File name="File" fileName="logs/app.log">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
         </File>
+
+        <RollingFile name="UserLogFile" fileName="logs/user.log" filePattern="logs/user-%d{yyyy-MM}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- 용량 기반 롤링 -->
+                <SizeBasedTriggeringPolicy size="10MB" />
+                <!-- 날짜 기반 롤링 -->
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
+
+        <RollingFile name="ClanLogFile" fileName="logs/clan.log" filePattern="logs/clan-%d{yyyy-MM}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d [%t] %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- 용량 기반 롤링 -->
+                <SizeBasedTriggeringPolicy size="10MB" />
+                <!-- 날짜 기반 롤링 -->
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="10" />
+        </RollingFile>
     </Appenders>
 
     <Loggers>
@@ -17,6 +43,14 @@
         <Logger name="app.ebel" level="info" additivity="false">
             <AppenderRef ref="Console" />
             <AppenderRef ref="File" />
+        </Logger>
+
+        <Logger name="app.ebel.steadybucks.controller.UserController" level="info" additivity="false">
+            <AppenderRef ref="UserLogFile"/>
+        </Logger>
+
+        <Logger name="app.ebel.steadybucks.controller.ClanController" level="info" additivity="false">
+            <AppenderRef ref="ClanLogFile"/>
         </Logger>
 
         <!-- Root Logger -->

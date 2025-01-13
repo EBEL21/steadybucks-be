@@ -14,6 +14,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService {
 
     private final EntityManager entityManager;
 
+    private static final Logger logger = LoggerFactory.getLogger("UserLogger");
 
     @Override
     public Long registerUser(UserDto userDto) {
