@@ -1,6 +1,6 @@
 package app.ebel.steadybucks.repository.impl;
 
-import app.ebel.steadybucks.UserSimpleInfoDto;
+import app.ebel.steadybucks.dto.UserSimpleInfoDto;
 import app.ebel.steadybucks.dto.base.*;
 import app.ebel.steadybucks.dto.response.ClanInterestRpDto;
 import app.ebel.steadybucks.dto.response.UserInterestRpDto;

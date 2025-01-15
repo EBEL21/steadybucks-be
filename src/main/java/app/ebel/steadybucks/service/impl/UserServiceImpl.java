@@ -2,20 +2,24 @@ package app.ebel.steadybucks.service.impl;
 
 import app.ebel.steadybucks.dto.base.*;
 import app.ebel.steadybucks.dto.request.AddInterestRqDto;
+import app.ebel.steadybucks.dto.request.LoginRqDto;
 import app.ebel.steadybucks.dto.request.UserTransactionRqDto;
 import app.ebel.steadybucks.dto.response.*;
 import app.ebel.steadybucks.entity.*;
 import app.ebel.steadybucks.entity.eid.UserStockId;
 import app.ebel.steadybucks.enums.TradingType;
 import app.ebel.steadybucks.exception.community.ResourceNotFoundException;
+import app.ebel.steadybucks.exception.community.UnmatchedPasswordException;
 import app.ebel.steadybucks.repository.base.*;
 import app.ebel.steadybucks.service.base.UserService;
+import app.ebel.steadybucks.util.JwtUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -41,13 +45,35 @@ public class UserServiceImpl implements UserService {
 
     private final EntityManager entityManager;
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
     private static final Logger logger = LoggerFactory.getLogger("UserLogger");
 
     @Override
     public Long registerUser(UserDto userDto) {
-        User user = userDto.toEntity();
+        User user = User.builder()
+                .loginId(userDto.getLoginId())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .nickname(userDto.getNickName())
+                .account(new Account())
+                .build();
         User savedUser = userRepository.save(user);
         return savedUser.getId();
+    }
+
+    @Override
+    public String loginUser(LoginRqDto loginRqDto) {
+
+        String id = loginRqDto.getId();
+        String password = loginRqDto.getPassword();
+
+        User user = userRepository.findByLoginId(id).orElseThrow(() -> new ResourceNotFoundException("User@" + id));
+
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            return JwtUtil.generateToken(id);
+        } else {
+            throw new UnmatchedPasswordException();
+        }
     }
 
     @Override

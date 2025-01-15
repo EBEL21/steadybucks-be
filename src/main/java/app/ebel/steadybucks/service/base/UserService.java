@@ -3,11 +3,14 @@ package app.ebel.steadybucks.service.base;
 import app.ebel.steadybucks.dto.base.UserDto;
 import app.ebel.steadybucks.dto.base.UserStockDto;
 import app.ebel.steadybucks.dto.request.AddInterestRqDto;
+import app.ebel.steadybucks.dto.request.LoginRqDto;
 import app.ebel.steadybucks.dto.request.UserTransactionRqDto;
 import app.ebel.steadybucks.dto.response.*;
 
 public interface UserService {
     Long registerUser(UserDto userDto);
+
+    String loginUser(LoginRqDto loginRqDto);
 
     Long deleteUser(Long userId);
 

@@ -3,6 +3,7 @@ package app.ebel.steadybucks.controller;
 import app.ebel.steadybucks.dto.base.UserDto;
 import app.ebel.steadybucks.dto.base.UserStockDto;
 import app.ebel.steadybucks.dto.request.AddInterestRqDto;
+import app.ebel.steadybucks.dto.request.LoginRqDto;
 import app.ebel.steadybucks.dto.request.UserTransactionRqDto;
 import app.ebel.steadybucks.dto.response.*;
 import app.ebel.steadybucks.enums.TransactionType;
@@ -32,6 +33,12 @@ public class UserController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserDto userDto) {
         Long userId = userService.registerUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(userId);
+    }
+
+    @GetMapping(value = "/login")
+    public ResponseEntity<String> registerUser(@Valid @RequestBody LoginRqDto loginRqDto) {
+        String jwtToken = userService.loginUser(loginRqDto);
+        return ResponseEntity.ok(jwtToken);
     }
 
     @DeleteMapping(value = "/{userId}/delete")
