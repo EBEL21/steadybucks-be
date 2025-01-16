@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface UserRepository extends BaseRepository<User, Long>, UserRepositoryCustom {
     Optional<User> findByLoginId(String loginId);
+    Optional<User> findByNickname(String loginId);
+
 }

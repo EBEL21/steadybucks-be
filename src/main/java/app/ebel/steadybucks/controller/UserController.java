@@ -35,7 +35,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userId);
     }
 
-    @GetMapping(value = "/login")
+    @PostMapping(value = "/login")
     public ResponseEntity<String> registerUser(@Valid @RequestBody LoginRqDto loginRqDto) {
         String jwtToken = userService.loginUser(loginRqDto);
         return ResponseEntity.ok(jwtToken);

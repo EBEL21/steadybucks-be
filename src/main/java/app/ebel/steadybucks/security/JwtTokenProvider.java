@@ -1,21 +1,27 @@
-package app.ebel.steadybucks.util;
+package app.ebel.steadybucks.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.pulsar.PulsarProperties;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-public class JwtUtil {
+@Component
+@RequiredArgsConstructor
+public class JwtTokenProvider {
 
     private static final byte[] SECRET_KEY = System.getenv("JWT_SECRET_KEY").getBytes();
     private static final long EXPIRATION_TIME = 86400000;
 
     // JWT 토큰 생성
-    public static String generateToken(String username) {
+    public static String generateToken(Authentication authentication) {
         return Jwts.builder()
-                .setSubject(username)
+                .setSubject(authentication.getName())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(Keys.hmacShaKeyFor(SECRET_KEY))
@@ -39,6 +45,18 @@ public class JwtUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static String getUsernameFromToken(String token) {
+        return getClaims(token).getSubject();
+    }
+
+    public static String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 
     private static Claims getClaims(String token) {

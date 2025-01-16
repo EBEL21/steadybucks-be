@@ -12,9 +12,7 @@ import app.ebel.steadybucks.exception.community.ResourceNotFoundException;
 import app.ebel.steadybucks.exception.community.UnmatchedPasswordException;
 import app.ebel.steadybucks.repository.base.*;
 import app.ebel.steadybucks.service.base.UserService;
-import app.ebel.steadybucks.util.JwtUtil;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -70,7 +68,8 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByLoginId(id).orElseThrow(() -> new ResourceNotFoundException("User@" + id));
 
         if (passwordEncoder.matches(password, user.getPassword())) {
-            return JwtUtil.generateToken(id);
+//            return JwtTokenProvider.generateToken(id);
+            return "success";
         } else {
             throw new UnmatchedPasswordException();
         }
