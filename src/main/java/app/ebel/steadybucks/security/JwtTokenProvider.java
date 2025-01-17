@@ -59,7 +59,7 @@ public class JwtTokenProvider {
         return null;
     }
 
-    private static Claims getClaims(String token) {
+    public static Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
                 .build()

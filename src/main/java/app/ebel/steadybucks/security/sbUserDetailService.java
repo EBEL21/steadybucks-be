@@ -16,7 +16,10 @@ public class sbUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByLoginId(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));;
+
+        System.out.println("유저 디테일 서비스 호출");
+
+        User user = userRepository.findByLoginId(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new sbUserDetails(user);
     }
 }
