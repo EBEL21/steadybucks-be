@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -60,8 +61,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/interests/add")
-    public ResponseEntity<?> addUserInterest(@Valid @RequestBody AddInterestRqDto addInterestRqDto) {
-        Long interestId = userService.addUserInterest(addInterestRqDto);
+    public ResponseEntity<?> addUserInterest(@Valid @RequestBody AddInterestRqDto addInterestRqDto, @AuthenticationPrincipal Long userId) {
+        Long interestId = userService.addUserInterest(addInterestRqDto, userId);
         return ResponseEntity.ok(interestId);
     }
 

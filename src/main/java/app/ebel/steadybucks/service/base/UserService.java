@@ -20,7 +20,7 @@ public interface UserService {
 
     UserClanInfoRpDto getUserRegisteredClan(Long userId);
 
-    Long addUserInterest(AddInterestRqDto addInterestRqDto);
+    Long addUserInterest(AddInterestRqDto addInterestRqDto, Long userId);
 
     Long followClanInterest(Long userId, Long interestId);
 

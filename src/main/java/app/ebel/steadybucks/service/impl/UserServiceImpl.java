@@ -106,8 +106,7 @@ public class UserServiceImpl implements UserService {
 
     // TODO 무결성검사, 중복검사, 관종 follow 중인 clan member 조회
     @Override
-    public Long addUserInterest(AddInterestRqDto addInterestRqDto) {
-        Long userId = addInterestRqDto.getCreatorId();
+    public Long addUserInterest(AddInterestRqDto addInterestRqDto, Long userId) {
         String stockCode = addInterestRqDto.getStockCode();
         User user = userRepository.findByIdOrThrow(userId, "User");
         Stock stock = stockRepository.findByCodeOrThrow(stockCode);

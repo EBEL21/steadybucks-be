@@ -8,8 +8,6 @@ import java.time.LocalDate;
 @Getter
 public class AddInterestRqDto {
 
-    private Long creatorId;
-    private Long clanId;
     private LocalDate capturedAt;
     private LocalDate closedAt;
     private String stockCode;

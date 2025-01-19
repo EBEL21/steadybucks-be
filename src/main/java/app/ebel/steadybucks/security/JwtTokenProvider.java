@@ -38,6 +38,7 @@ public class JwtTokenProvider {
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
+                .claim("userId", userDetails.getUser().getId())
                 .claim("roles", userDetails.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority).toList())
                 .claim("clans", clanRoles)

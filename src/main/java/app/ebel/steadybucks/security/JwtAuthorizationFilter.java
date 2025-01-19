@@ -17,11 +17,25 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         System.out.println("JwtAuthorizationFilter 작동합니다");
 
-        if (token != null && JwtTokenProvider.validateToken(token)) {
-            // JWT에서 사용자 권한을 추출하고 SecurityContext에 설정
-            Authentication authentication = JwtTokenProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        // 토큰 인증 실패
+        if (token == null) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+            response.setContentType("application/json");
+            response.getWriter().write("{\"message\": \"Token is missing or invalid\"}");
+            return;
         }
+
+        // 유효하지 않은 토큰
+        if (!JwtTokenProvider.validateToken(token)) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403 Forbidden
+            response.setContentType("application/json");
+            response.getWriter().write("{\"message\": \"Token is invalid\"}");
+            return;
+        }
+
+        // JWT에서 사용자 권한을 추출하고 SecurityContext에 설정
+        Authentication authentication = JwtTokenProvider.getAuthentication(token);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
 }

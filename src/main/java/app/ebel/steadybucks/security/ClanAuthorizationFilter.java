@@ -33,7 +33,7 @@ public class ClanAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-        return !path.startsWith("/api/clans/") || path.startsWith("/api/clans/create");
+        return !path.startsWith("/api/clans/") || path.startsWith("/api/clans/create") || path.startsWith("/api/clans/list");
     }
 
     @Override
@@ -50,12 +50,12 @@ public class ClanAuthorizationFilter extends OncePerRequestFilter {
             String requiredRole = "MEMBER";
 
             try {
-                if(request.getMethod().equalsIgnoreCase("GET") || request.getMethod().equalsIgnoreCase("DELETE")) {
-                    clanId = extractClanIdFromPath(request);
-                } else if(request.getMethod().equalsIgnoreCase("POST")) {
-                    clanId = extractClanIdFromBody(request);
-                }
-
+//                if(request.getMethod().equalsIgnoreCase("GET") || request.getMethod().equalsIgnoreCase("DELETE")) {
+//                    clanId = extractClanIdFromPath(request);
+//                } else if(request.getMethod().equalsIgnoreCase("POST")) {
+//                    clanId = extractClanIdFromBody(request);
+//                }
+                clanId = extractClanIdFromPath(request);
                 HandlerMethod handlerMethod = getHandlerMethod(request);
                 if (handlerMethod != null) {
                     RequiresClanRole annotation = handlerMethod.getMethodAnnotation(RequiresClanRole.class);
