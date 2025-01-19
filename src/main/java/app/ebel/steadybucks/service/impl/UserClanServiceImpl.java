@@ -28,9 +28,7 @@ public class UserClanServiceImpl implements UserClanService {
     private final UserClanRepository userClanRepository;
 
     @Override
-    public Long userRegisterClan(UserRegisterClanRqDto dto) {
-        Long userId = dto.getUserId();
-        Long clanId = dto.getClanId();
+    public Long userRegisterClan(Long clanId, Long userId) {
 
         if (!userRepository.existsById(userId)) {
             throw new IllegalArgumentException("User not found");
@@ -51,9 +49,7 @@ public class UserClanServiceImpl implements UserClanService {
     }
 
     @Override
-    public Long createClan(CreateClanRqDto dto) {
-        Long userId = dto.getUserId();
-        String clanName = dto.getClanName();
+    public Long createClan(String clanName, Long userId) {
 
         if (!userRepository.existsById(userId)) {
             throw new IllegalArgumentException("User not found");

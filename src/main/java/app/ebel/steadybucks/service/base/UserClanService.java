@@ -4,8 +4,8 @@ import app.ebel.steadybucks.dto.request.CreateClanRqDto;
 import app.ebel.steadybucks.dto.request.UserRegisterClanRqDto;
 
 public interface UserClanService {
-    Long userRegisterClan(UserRegisterClanRqDto dto);
-    Long createClan(CreateClanRqDto dto);
+    Long userRegisterClan(Long clanId, Long userId);
+    Long createClan(String clanName, Long userId);
 
     boolean deleteClan(Long clanId, Long userId);
 

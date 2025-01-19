@@ -3,6 +3,7 @@ package app.ebel.steadybucks.controller;
 import app.ebel.steadybucks.dto.base.UserDto;
 import app.ebel.steadybucks.dto.base.UserStockDto;
 import app.ebel.steadybucks.dto.request.AddInterestRqDto;
+import app.ebel.steadybucks.dto.request.LoginRqDto;
 import app.ebel.steadybucks.dto.request.UserTransactionRqDto;
 import app.ebel.steadybucks.dto.response.*;
 import app.ebel.steadybucks.enums.TransactionType;
@@ -11,6 +12,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,6 +36,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userId);
     }
 
+    @PostMapping(value = "/login")
+    public ResponseEntity<String> registerUser(@Valid @RequestBody LoginRqDto loginRqDto) {
+        String jwtToken = userService.loginUser(loginRqDto);
+        return ResponseEntity.ok(jwtToken);
+    }
+
     @DeleteMapping(value = "/{userId}/delete")
     public ResponseEntity<Long> deleteUser(@PathVariable Long userId) {
         Long id = userService.deleteUser(userId);
@@ -53,8 +61,8 @@ public class UserController {
     }
 
     @PostMapping(value = "/interests/add")
-    public ResponseEntity<?> addUserInterest(@Valid @RequestBody AddInterestRqDto addInterestRqDto) {
-        Long interestId = userService.addUserInterest(addInterestRqDto);
+    public ResponseEntity<?> addUserInterest(@Valid @RequestBody AddInterestRqDto addInterestRqDto, @AuthenticationPrincipal Long userId) {
+        Long interestId = userService.addUserInterest(addInterestRqDto, userId);
         return ResponseEntity.ok(interestId);
     }
 

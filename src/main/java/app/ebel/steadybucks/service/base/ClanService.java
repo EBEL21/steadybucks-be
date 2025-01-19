@@ -10,7 +10,7 @@ public interface ClanService {
 
     ClanListRpDto getAllClans();
     ClanMembersInfoRpDto getClanMemberInfo(Long clanId);
-    Long addClanInterest(AddInterestRqDto addInterestRqDto);
+    Long addClanInterest(Long clanId, AddInterestRqDto addInterestRqDto, Long userId);
 
     ClanInterestRpDto getClanInterest(Long clanId);
 

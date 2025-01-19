@@ -1,6 +1,6 @@
 package app.ebel.steadybucks.repository.impl;
 
-import app.ebel.steadybucks.UserSimpleInfoDto;
+import app.ebel.steadybucks.dto.UserSimpleInfoDto;
 import app.ebel.steadybucks.dto.base.*;
 import app.ebel.steadybucks.dto.response.ClanInterestRpDto;
 import app.ebel.steadybucks.dto.response.UserInterestRpDto;
@@ -36,6 +36,8 @@ public class InterestRepositoryImpl implements InterestRepositoryCustom {
                         Projections.fields(
                                 UserInterestSingleDto.class,
                                 interest.createdUser.id.as("creatorId"),
+                                interest.createdUser.nickname.as("creator"),
+                                interest.createdClan.name.as("clan"),
                                 Projections.fields(
                                         StockDto.class,
                                         stock.code,
@@ -58,6 +60,8 @@ public class InterestRepositoryImpl implements InterestRepositoryCustom {
                         Projections.fields(
                                 UserInterestSingleDto.class,
                                 interest.createdUser.id.as("creatorId"),
+                                interest.createdUser.nickname.as("creator"),
+                                interest.createdClan.name.as("clan"),
                                 constructor(
                                         StockDto.class,
                                         stock.code,

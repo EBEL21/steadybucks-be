@@ -50,9 +50,7 @@ public class ClanServiceImpl implements ClanService {
     }
 
     @Override
-    public Long addClanInterest(AddInterestRqDto addInterestRqDto) {
-        Long clanId = addInterestRqDto.getClanId();
-        Long userId = addInterestRqDto.getCreatorId();
+    public Long addClanInterest(Long clanId, AddInterestRqDto addInterestRqDto, Long userId) {
         String stockCode = addInterestRqDto.getStockCode();
 
         Clan clan = clanRepository.findByIdOrThrow(clanId, "Clan");

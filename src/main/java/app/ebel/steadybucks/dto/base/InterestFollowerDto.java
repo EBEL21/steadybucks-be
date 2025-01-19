@@ -1,6 +1,6 @@
 package app.ebel.steadybucks.dto.base;
 
-import app.ebel.steadybucks.UserSimpleInfoDto;
+import app.ebel.steadybucks.dto.UserSimpleInfoDto;
 import lombok.*;
 
 @Data

@@ -27,9 +27,9 @@ public class User {
     @Size(min = 5, max=30)
     private String loginId;
 
-    @Column(name="password", nullable = false, length = 30)
+    @Column(name="password", nullable = false, length = 100)
     @NotBlank(message = "Password entry is required.")
-    @Size(min = 5, max=30)
+    @Size(min = 5, max=100)
     private String password;
 
     @Column(name = "nickname", nullable = false, unique = true, length = 15)

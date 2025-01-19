@@ -1,4 +1,4 @@
-package app.ebel.steadybucks;
+package app.ebel.steadybucks.dto;
 
 import lombok.*;
 
