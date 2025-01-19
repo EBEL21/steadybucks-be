@@ -17,7 +17,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -43,16 +43,18 @@ public class UserServiceImpl implements UserService {
 
     private final EntityManager entityManager;
 
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     private static final Logger logger = LoggerFactory.getLogger("UserLogger");
 
     @Override
     public Long registerUser(UserDto userDto) {
+
+        System.out.println("회원가입 시작");
         User user = User.builder()
                 .loginId(userDto.getLoginId())
                 .password(passwordEncoder.encode(userDto.getPassword()))
-                .nickname(userDto.getNickName())
+                .nickname(userDto.getNickname())
                 .account(new Account())
                 .build();
         User savedUser = userRepository.save(user);

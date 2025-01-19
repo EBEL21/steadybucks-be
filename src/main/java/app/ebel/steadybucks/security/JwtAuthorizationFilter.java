@@ -9,8 +9,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
+
+    private final List<String> allowedURI = List.of("/api/users/register", "/api/users/login", "/swagger-ui/", "/v3/api-docs");
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        return allowedURI.stream().anyMatch(path::startsWith);
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = JwtTokenProvider.resolveToken(request);

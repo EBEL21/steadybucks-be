@@ -3,12 +3,11 @@ package app.ebel.steadybucks.dto.base;
 import app.ebel.steadybucks.entity.Account;
 import app.ebel.steadybucks.entity.User;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class UserDto {
 
@@ -19,13 +18,13 @@ public class UserDto {
     private String password;
 
     @NotBlank
-    private String nickName;
+    private String nickname;
 
     public User toEntity() {
         return User.builder()
                 .loginId(this.loginId)
                 .password(this.password)
-                .nickname(this.nickName)
+                .nickname(this.nickname)
                 .account(new Account())
                 .build();
     }
@@ -34,7 +33,7 @@ public class UserDto {
         return UserDto.builder()
                 .loginId(user.getLoginId())
                 .password(user.getPassword())
-                .nickName(user.getNickname())
+                .nickname(user.getNickname())
                 .build();
     }
 }
